@@ -1,7 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const mongoose = require('mongoose');
+let mongoose;
+try {
+  mongoose = require('mongoose');
+} catch (error) {
+  console.error('Missing dependency: mongoose. Run `npm install` at repository root.');
+  process.exit(1);
+}
 const authRoutes = require('./routes/auth');
 const { questRouter } = require('./routes/quest');
 const { createUploadRouter } = require('./routes/uploads');

@@ -9,58 +9,95 @@ interface QrScannerProps {
 
 export default function QrScanner({ onDetected }: QrScannerProps) {
   const { t } = useI18n();
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const [active, setActive] = useState(false);
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [manualCode, setManualCode] = useState('');
+  const [supportsDetector, setSupportsDetector] = useState(false);
 
   useEffect(() => {
-    let html5Qrcode: { start: Function; stop: Function } | null = null;
-    let mounted = true;
+    setSupportsDetector(typeof window !== 'undefined' && 'BarcodeDetector' in window);
+  }, []);
 
-    async function initScanner() {
-      if (!active || !containerRef.current) {
+  useEffect(() => {
+    let stream: MediaStream | null = null;
+    let timer: number | null = null;
+
+    async function startNativeScanner() {
+      if (!active || !supportsDetector || !videoRef.current) {
         return;
       }
 
-      const { Html5Qrcode } = await import('html5-qrcode');
+      const detector = new (window as any).BarcodeDetector({ formats: ['qr_code'] });
 
-      html5Qrcode = new Html5Qrcode('qr-reader');
+      stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+      videoRef.current.srcObject = stream;
+      await videoRef.current.play();
 
-      await html5Qrcode.start(
-        { facingMode: 'environment' },
-        { fps: 10, qrbox: 250 },
-        (decodedText: string) => {
-          if (!mounted) {
-            return;
+      timer = window.setInterval(async () => {
+        if (!videoRef.current) {
+          return;
+        }
+
+        try {
+          const codes = await detector.detect(videoRef.current);
+          if (codes?.length) {
+            const value = codes[0].rawValue;
+            if (value) {
+              onDetected(value);
+              setActive(false);
+            }
           }
-
-          onDetected(decodedText);
-          setActive(false);
-        },
-        () => {}
-      );
+        } catch {
+          // ignore frame errors
+        }
+      }, 500);
     }
 
-    initScanner();
+    startNativeScanner();
 
     return () => {
-      mounted = false;
-      if (html5Qrcode) {
-        html5Qrcode.stop().catch(() => null);
+      if (timer) {
+        clearInterval(timer);
+      }
+
+      if (stream) {
+        stream.getTracks().forEach((track) => track.stop());
       }
     };
-  }, [active, onDetected]);
+  }, [active, onDetected, supportsDetector]);
+
+  function submitManualCode() {
+    if (!manualCode.trim()) {
+      return;
+    }
+
+    onDetected(manualCode.trim());
+    setManualCode('');
+  }
 
   return (
     <div className="soft-card soft-yellow">
-      <button
-        type="button"
-        onClick={() => setActive((prev) => !prev)}
-        className="btn-primary"
-      >
-        {active ? t('quest.stopScan') : t('quest.scanButton')}
-      </button>
+      <div className="flex flex-wrap items-center gap-2">
+        <button type="button" onClick={() => setActive((prev) => !prev)} className="btn-primary">
+          {active ? t('quest.stopScan') : t('quest.scanButton')}
+        </button>
 
-      {active && <div id="qr-reader" ref={containerRef} className="mt-3" />}
+        <input
+          value={manualCode}
+          onChange={(e) => setManualCode(e.target.value)}
+          placeholder="lvl1 / lvl2 / ..."
+          className="rounded-xl border border-slate-300 px-3 py-2 text-sm"
+        />
+        <button type="button" onClick={submitManualCode} className="btn-secondary">
+          OK
+        </button>
+      </div>
+
+      {active && supportsDetector && <video ref={videoRef} className="mt-3 w-full rounded-xl" muted playsInline />}
+
+      {active && !supportsDetector && (
+        <p className="mt-3 text-sm text-slate-600">BarcodeDetector не поддерживается, используйте ручной ввод QR-кода.</p>
+      )}
     </div>
   );
 }

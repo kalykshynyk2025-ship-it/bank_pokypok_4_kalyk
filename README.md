@@ -114,7 +114,7 @@ npm run start
 ```
 
 
-Frontend QR scanner: используется библиотека `html5-qrcode` на странице `/quest`.
+Frontend QR scanner: используется BarcodeDetector API (с fallback на ручной ввод QR-кода).
 
 
 После завершения 5 уровней квеста пользователю выдаётся случайная награда и сохраняется в профиле.
