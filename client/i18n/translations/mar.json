@@ -7,7 +7,8 @@
     "register": "Регистраций",
     "quest": "Квест",
     "catalog": "Каталог",
-    "profile": "Профиль"
+    "profile": "Профиль",
+    "admin": "Админ"
   },
   "language": {
     "label": "Йылме",
@@ -85,7 +86,8 @@
     "qrDenied": "Тиде уровеньыш пурымаш чарналтын",
     "levelOpened": "{level} уровень почылтеш",
     "spiritAccepted": "Шӱвыр-влак тыйым налын",
-    "yourReward": "Тыйын наградо"
+    "yourReward": "Тыйын наградо",
+    "chooseMall": "ТЦ ойырыза"
   },
   "catalog": {
     "title": "Товар каталог",

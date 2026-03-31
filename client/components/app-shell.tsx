@@ -16,6 +16,7 @@ function Header() {
         <Link href="/quest" className="text-sm text-slate-700 hover:text-slate-900">{t('nav.quest')}</Link>
         <Link href="/catalog" className="text-sm text-slate-700 hover:text-slate-900">{t('nav.catalog')}</Link>
         <Link href="/profile" className="text-sm text-slate-700 hover:text-slate-900">{t('nav.profile')}</Link>
+        <Link href="/admin" className="text-sm text-slate-700 hover:text-slate-900">{t('nav.admin')}</Link>
 
         <div className="ml-auto flex items-center gap-3">
           <Link href="/login" className="text-sm text-slate-700 hover:text-slate-900">{t('nav.login')}</Link>

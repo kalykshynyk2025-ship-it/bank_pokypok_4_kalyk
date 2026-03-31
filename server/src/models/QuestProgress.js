@@ -5,8 +5,12 @@ const questProgressSchema = new mongoose.Schema(
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-      required: true,
-      unique: true
+      required: true
+    },
+    mallId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Mall',
+      required: true
     },
     currentLevel: {
       type: Number,
@@ -28,5 +32,7 @@ const questProgressSchema = new mongoose.Schema(
     timestamps: true
   }
 );
+
+questProgressSchema.index({ userId: 1, mallId: 1 }, { unique: true });
 
 module.exports = mongoose.model('QuestProgress', questProgressSchema);

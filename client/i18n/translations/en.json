@@ -7,7 +7,8 @@
     "register": "Register",
     "quest": "Quest",
     "catalog": "Catalog",
-    "profile": "Profile"
+    "profile": "Profile",
+    "admin": "Admin"
   },
   "language": {
     "label": "Language",
@@ -85,7 +86,8 @@
     "qrDenied": "Access to this level is denied",
     "levelOpened": "Level {level} opened",
     "spiritAccepted": "The spirits accepted you",
-    "yourReward": "Your reward"
+    "yourReward": "Your reward",
+    "chooseMall": "Choose mall"
   },
   "catalog": {
     "title": "Product catalog",

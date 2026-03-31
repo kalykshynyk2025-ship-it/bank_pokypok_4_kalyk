@@ -15,39 +15,16 @@ const aiValidationSchema = new mongoose.Schema(
 
 const questSubmissionSchema = new mongoose.Schema(
   {
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      required: false
-    },
-    questTaskId: {
-      type: String,
-      required: true
-    },
-    questTaskTitle: {
-      type: String,
-      required: true
-    },
-    fileUrl: {
-      type: String,
-      required: true
-    },
-    fileType: {
-      type: String,
-      required: true
-    },
-    originalName: {
-      type: String,
-      required: true
-    },
-    aiValidation: {
-      type: aiValidationSchema,
-      default: () => ({})
-    }
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: false },
+    mallId: { type: mongoose.Schema.Types.ObjectId, ref: 'Mall', required: false },
+    questTaskId: { type: String, required: true },
+    questTaskTitle: { type: String, required: true },
+    fileUrl: { type: String, required: true },
+    fileType: { type: String, required: true },
+    originalName: { type: String, required: true },
+    aiValidation: { type: aiValidationSchema, default: () => ({}) }
   },
-  {
-    timestamps: true
-  }
+  { timestamps: true }
 );
 
 module.exports = mongoose.model('QuestSubmission', questSubmissionSchema);

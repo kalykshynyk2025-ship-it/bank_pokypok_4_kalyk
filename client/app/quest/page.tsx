@@ -5,6 +5,12 @@ import QrScanner from '@/components/qr-scanner';
 import { useI18n } from '@/context/i18n-context';
 import { getUser } from '@/lib/auth';
 
+interface Mall {
+  _id: string;
+  name: string;
+  city: string;
+}
+
 interface QuestTask {
   id: string;
   level: number;
@@ -17,11 +23,12 @@ interface QuestTask {
 interface QuestProgress {
   currentLevel: number;
   completedLevels: number[];
-  answers?: Record<string, string>;
 }
 
 export default function QuestPage() {
   const { t } = useI18n();
+  const [malls, setMalls] = useState<Mall[]>([]);
+  const [mallId, setMallId] = useState('');
   const [tasks, setTasks] = useState<QuestTask[]>([]);
   const [progress, setProgress] = useState<QuestProgress>({ currentLevel: 1, completedLevels: [] });
   const [userId, setUserId] = useState<string | null>(null);
@@ -53,29 +60,45 @@ export default function QuestPage() {
   }, [t]);
 
   useEffect(() => {
-    async function loadData() {
-      const tasksResponse = await fetch('/api/quest/tasks');
-      const tasksData = await tasksResponse.json();
-      setTasks(tasksData.tasks || []);
+    async function loadMalls() {
+      const response = await fetch('/api/quest/malls');
+      const data = await response.json();
+      setMalls(data.malls || []);
+
+      if (data.malls?.length) {
+        setMallId(data.malls[0]._id);
+      }
     }
 
-    loadData();
+    loadMalls();
   }, []);
 
   useEffect(() => {
-    async function loadProgress() {
-      if (!userId) {
-        return;
-      }
+    async function loadMallQuest() {
+      if (!mallId) return;
 
-      const progressResponse = await fetch(`/api/quest/progress/${userId}`);
+      const tasksResponse = await fetch(`/api/quest/malls/${mallId}/levels`);
+      const tasksData = await tasksResponse.json();
+      setTasks(tasksData.tasks || []);
+      setOpenedLevel(1);
+      setQuestReward(null);
+    }
+
+    loadMallQuest();
+  }, [mallId]);
+
+  useEffect(() => {
+    async function loadProgress() {
+      if (!userId || !mallId) return;
+
+      const progressResponse = await fetch(`/api/quest/progress/${userId}?mallId=${mallId}`);
       const progressData = await progressResponse.json();
       setProgress(progressData.progress);
       setOpenedLevel(progressData.progress?.currentLevel || 1);
     }
 
     loadProgress();
-  }, [userId]);
+  }, [userId, mallId]);
 
   const doneCount = useMemo(() => progress.completedLevels.length, [progress.completedLevels.length]);
 
@@ -85,7 +108,7 @@ export default function QuestPage() {
   }
 
   async function handleQrDetected(code: string) {
-    if (!userId) {
+    if (!userId || !mallId) {
       setMessage(t('quest.authNeeded'));
       return;
     }
@@ -93,7 +116,7 @@ export default function QuestPage() {
     const response = await fetch(`/api/quest/scan/${userId}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ code })
+      body: JSON.stringify({ code, mallId })
     });
 
     const data = await response.json();
@@ -106,13 +129,12 @@ export default function QuestPage() {
     if (data.allowed) {
       setOpenedLevel(data.level);
       setMessage(data.message || levelText('quest.levelOpened', data.level));
-      const element = document.getElementById(`level-${data.level}`);
-      element?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      document.getElementById(`level-${data.level}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }
 
   async function uploadForTask(task: QuestTask) {
-    if (!userId) {
+    if (!userId || !mallId) {
       setMessage(t('quest.authNeeded'));
       return false;
     }
@@ -126,12 +148,11 @@ export default function QuestPage() {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('questTaskId', task.id);
+    formData.append('questTaskTitle', task.title);
     formData.append('userId', userId);
+    formData.append('mallId', mallId);
 
-    const uploadResponse = await fetch('/api/uploads', {
-      method: 'POST',
-      body: formData
-    });
+    const uploadResponse = await fetch('/api/uploads', { method: 'POST', body: formData });
 
     if (!uploadResponse.ok) {
       const errorData = await uploadResponse.json();
@@ -143,7 +164,7 @@ export default function QuestPage() {
   }
 
   async function completeLevel(task: QuestTask) {
-    if (!userId) {
+    if (!userId || !mallId) {
       setMessage(t('quest.authNeeded'));
       return;
     }
@@ -151,9 +172,7 @@ export default function QuestPage() {
     const requiresUpload = task.type.includes('photo') || task.type.includes('video');
     if (requiresUpload) {
       const ok = await uploadForTask(task);
-      if (!ok) {
-        return;
-      }
+      if (!ok) return;
     }
 
     const answer = answerByLevel[task.level];
@@ -165,7 +184,7 @@ export default function QuestPage() {
     const response = await fetch(`/api/quest/progress/${userId}/complete`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ level: task.level, answer })
+      body: JSON.stringify({ level: task.level, answer, mallId })
     });
 
     const data = await response.json();
@@ -191,19 +210,23 @@ export default function QuestPage() {
     <section className="space-y-6 fade-up">
       <div className="soft-card soft-green">
         <h1 className="text-2xl font-bold">{t('quest.title')}</h1>
-        <p className="mt-2 text-slate-700">
-          {t('quest.progress')}: {doneCount}/5
-        </p>
-      </div>
+        <p className="mt-2 text-slate-700">{t('quest.progress')}: {doneCount}/5</p>
 
+        <div className="mt-3">
+          <label className="text-sm text-slate-700">{t('quest.chooseMall')}</label>
+          <select value={mallId} onChange={(e) => setMallId(e.target.value)} className="mt-1 w-full rounded-xl border px-3 py-2">
+            {malls.map((mall) => (
+              <option key={mall._id} value={mall._id}>{mall.name} — {mall.city}</option>
+            ))}
+          </select>
+        </div>
+      </div>
 
       {showIntro && (
         <div className="soft-card soft-pink text-center">
           <h2 className="text-2xl font-bold text-purple-900">{t('story.introTitle')}</h2>
           <p className="mt-2 text-purple-800">{t('story.introLine')}</p>
-          <button className="btn-primary mt-4" onClick={() => setShowIntro(false)}>
-            {t('story.beginJourney')}
-          </button>
+          <button className="btn-primary mt-4" onClick={() => setShowIntro(false)}>{t('story.beginJourney')}</button>
         </div>
       )}
 
@@ -216,59 +239,27 @@ export default function QuestPage() {
           const isOpened = task.level === openedLevel;
 
           return (
-            <article
-              id={`level-${task.level}`}
-              key={task.id}
-              className={`soft-card ${
-                completed
-                  ? 'soft-green border-emerald-200'
-                  : isCurrent || isOpened
-                    ? 'soft-yellow border-amber-200'
-                    : 'soft-pink border-rose-100'
-              }`}
-            >
-              <h2 className="text-lg font-semibold">
-                {task.level}. {task.title}
-              </h2>
+            <article id={`level-${task.level}`} key={task.id} className={`soft-card ${completed ? 'soft-green border-emerald-200' : isCurrent || isOpened ? 'soft-yellow border-amber-200' : 'soft-pink border-rose-100'}`}>
+              <h2 className="text-lg font-semibold">{task.level}. {task.title}</h2>
               <p className="mt-2 text-sm text-slate-700">{task.description}</p>
               <p className="mt-2 text-sm italic text-purple-800">{levelStory[task.level]}</p>
 
               {(task.type.includes('photo') || task.type.includes('video')) && (isCurrent || isOpened) && (
                 <div className="mt-3 space-y-2">
                   <label className="text-sm text-slate-700">{t('quest.uploadLabel')}</label>
-                  <input
-                    type="file"
-                    accept={task.type.includes('video') ? 'video/*' : 'image/*'}
-                    onChange={(event) => onSelectFile(task.level, event)}
-                    className="block w-full rounded border border-slate-300 px-3 py-2 text-sm"
-                  />
+                  <input type="file" accept={task.type.includes('video') ? 'video/*' : 'image/*'} onChange={(event) => onSelectFile(task.level, event)} className="block w-full rounded border border-slate-300 px-3 py-2 text-sm" />
                 </div>
               )}
 
               {task.type.includes('question') && (isCurrent || isOpened) && (
                 <div className="mt-3 space-y-2">
                   <p className="text-sm font-medium text-slate-800">{task.question}</p>
-                  <textarea
-                    rows={3}
-                    value={answerByLevel[task.level] || ''}
-                    onChange={(event) =>
-                      setAnswerByLevel((prev) => ({
-                        ...prev,
-                        [task.level]: event.target.value
-                      }))
-                    }
-                    className="w-full rounded border border-slate-300 px-3 py-2 text-sm"
-                    placeholder={t('quest.answerPlaceholder')}
-                  />
+                  <textarea rows={3} value={answerByLevel[task.level] || ''} onChange={(event) => setAnswerByLevel((prev) => ({ ...prev, [task.level]: event.target.value }))} className="w-full rounded border border-slate-300 px-3 py-2 text-sm" placeholder={t('quest.answerPlaceholder')} />
                 </div>
               )}
 
               <div className="mt-4 flex items-center gap-2">
-                <button
-                  onClick={() => completeLevel(task)}
-                  disabled={!isCurrent || completed}
-                  className="btn-primary disabled:cursor-not-allowed disabled:bg-slate-400"
-                >
+                <button onClick={() => completeLevel(task)} disabled={!isCurrent || completed} className="btn-primary disabled:cursor-not-allowed disabled:bg-slate-400">
                   {completed ? t('quest.done') : isCurrent ? t('quest.completeNext') : t('quest.locked')}
                 </button>
               </div>
@@ -276,7 +267,6 @@ export default function QuestPage() {
           );
         })}
       </div>
-
 
       {questReward && (
         <div className="soft-card soft-pink text-center">

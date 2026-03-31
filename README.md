@@ -24,12 +24,22 @@ npm run dev
 
 ## Quest + Upload API
 
-- `GET /api/quest/tasks` — список заданий квеста
-- `GET /api/quest/progress/:userId` — получить прогресс пользователя (например, 1/5)
-- `POST /api/quest/scan/:userId` — проверить QR-код и открыть уровень
-  - body: `{ code }`
-- `POST /api/quest/progress/:userId/complete` — отметить уровень завершённым
-  - body: `{ level, answer? }`
+## Malls + Multi-quest API
+
+- `GET /api/quest/malls` — список ТЦ
+- `GET /api/quest/malls/:mallId/levels` — уровни квеста выбранного ТЦ
+- `GET /api/quest/progress/:userId?mallId=...` — прогресс пользователя в конкретном ТЦ
+- `POST /api/quest/scan/:userId` — проверка QR для конкретного ТЦ
+  - body: `{ code, mallId }`
+- `POST /api/quest/progress/:userId/complete`
+  - body: `{ level, answer?, mallId }`
+
+## Admin API (basic)
+
+- `GET /api/admin/malls` — список ТЦ и квестов (header `x-admin-key`)
+- `POST /api/admin/malls` — создать ТЦ с квест-структурой
+- `GET /api/admin/quests/:mallId` — квест-уровни по ТЦ
+
 - `POST /api/uploads` — загрузка фото/видео для задания
   - multipart fields:
     - `file`

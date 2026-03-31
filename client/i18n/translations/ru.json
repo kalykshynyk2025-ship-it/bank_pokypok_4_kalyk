@@ -7,7 +7,8 @@
     "register": "Регистрация",
     "quest": "Квест",
     "catalog": "Каталог",
-    "profile": "Профиль"
+    "profile": "Профиль",
+    "admin": "Админ"
   },
   "language": {
     "label": "Язык",
@@ -85,7 +86,8 @@
     "qrDenied": "Доступ к уровню запрещён",
     "levelOpened": "Открыт уровень {level}",
     "spiritAccepted": "Духи приняли тебя",
-    "yourReward": "Твоя награда"
+    "yourReward": "Твоя награда",
+    "chooseMall": "Выбери ТЦ"
   },
   "catalog": {
     "title": "Каталог товаров",
