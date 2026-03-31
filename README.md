@@ -2,7 +2,7 @@
 
 Структура:
 - `client` — Next.js + Tailwind CSS + i18n (RU/EN/MAR)
-- `server` — Node.js + Express + JWT + MongoDB
+- `server` — Node.js + Express + JWT + MongoDB + file upload
 
 ## Быстрый старт
 
@@ -21,6 +21,17 @@ npm run dev
   - body: `{ name, email, password, language }`
 - `POST /api/auth/login`
   - body: `{ email, password }`
+
+## Quest + Upload API
+
+- `GET /api/quest/tasks` — список заданий квеста
+- `POST /api/uploads` — загрузка фото/видео для задания
+  - multipart fields:
+    - `file`
+    - `questTaskId`
+    - `userId` (опционально)
+
+Загруженные файлы доступны по `/uploads/<filename>`.
 
 ## i18n
 

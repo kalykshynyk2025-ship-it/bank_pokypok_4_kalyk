@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import QuestUpload from '@/components/quest-upload';
 import { useI18n } from '@/context/i18n-context';
 
 interface BackendState {
@@ -65,6 +66,8 @@ export default function HomePage() {
           </button>
         </div>
       </div>
+
+      <QuestUpload />
     </section>
   );
 }

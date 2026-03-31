@@ -47,5 +47,16 @@
     "save": "Save",
     "continue": "Continue",
     "back": "Back"
+  },
+  "upload": {
+    "title": "Upload file for quest task",
+    "taskLabel": "Select quest task",
+    "pickFile": "Pick file",
+    "preview": "Preview",
+    "uploadButton": "Upload",
+    "uploading": "Uploading file...",
+    "uploadSuccess": "File uploaded and linked to quest task",
+    "uploadError": "Upload failed",
+    "selectError": "Select task and file"
   }
 }
