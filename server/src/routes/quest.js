@@ -43,6 +43,17 @@ const questTasks = [
   }
 ];
 
+function parseQrCodeToTaskId(code) {
+  const normalized = String(code || '').trim().toLowerCase();
+  const match = normalized.match(/lvl[1-5]/);
+
+  if (!match) {
+    return null;
+  }
+
+  return match[0];
+}
+
 async function getOrCreateProgress(userId) {
   let progress = await QuestProgress.findOne({ userId });
 
@@ -69,6 +80,38 @@ router.get('/tasks/:id', (req, res) => {
   }
 
   return res.json({ task });
+});
+
+router.post('/scan/:userId', async (req, res) => {
+  const { userId } = req.params;
+  const { code } = req.body;
+
+  const taskId = parseQrCodeToTaskId(code);
+  if (!taskId) {
+    return res.status(400).json({ message: 'Невалидный QR код' });
+  }
+
+  const task = questTasks.find((item) => item.id === taskId);
+  if (!task) {
+    return res.status(404).json({ message: 'Уровень не найден' });
+  }
+
+  const progress = await getOrCreateProgress(userId);
+
+  if (task.level > progress.currentLevel) {
+    return res.status(403).json({
+      message: `Нет доступа: сейчас открыт уровень ${progress.currentLevel}`,
+      allowed: false,
+      currentLevel: progress.currentLevel
+    });
+  }
+
+  return res.json({
+    allowed: true,
+    level: task.level,
+    task,
+    message: `Открыт уровень ${task.level}`
+  });
 });
 
 router.get('/progress/:userId', async (req, res) => {

@@ -77,6 +77,10 @@
     "answerPlaceholder": "Enter your answer",
     "done": "Completed",
     "completeNext": "Complete and go next",
-    "locked": "Locked"
+    "locked": "Locked",
+    "scanButton": "Scan",
+    "stopScan": "Stop scanner",
+    "qrDenied": "Access to this level is denied",
+    "levelOpened": "Level {level} opened"
   }
 }

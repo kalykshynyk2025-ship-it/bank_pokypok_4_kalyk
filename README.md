@@ -26,6 +26,8 @@ npm run dev
 
 - `GET /api/quest/tasks` — список заданий квеста
 - `GET /api/quest/progress/:userId` — получить прогресс пользователя (например, 1/5)
+- `POST /api/quest/scan/:userId` — проверить QR-код и открыть уровень
+  - body: `{ code }`
 - `POST /api/quest/progress/:userId/complete` — отметить уровень завершённым
   - body: `{ level, answer? }`
 - `POST /api/uploads` — загрузка фото/видео для задания
@@ -82,3 +84,6 @@ npm run build
 # Запуск backend в production-режиме
 npm run start
 ```
+
+
+Frontend QR scanner: используется библиотека `html5-qrcode` на странице `/quest`.

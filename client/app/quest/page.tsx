@@ -1,6 +1,7 @@
 'use client';
 
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import QrScanner from '@/components/qr-scanner';
 import { useI18n } from '@/context/i18n-context';
 import { getUser } from '@/lib/auth';
 
@@ -27,6 +28,7 @@ export default function QuestPage() {
   const [answerByLevel, setAnswerByLevel] = useState<Record<number, string>>({});
   const [fileByLevel, setFileByLevel] = useState<Record<number, File | null>>({});
   const [message, setMessage] = useState('');
+  const [openedLevel, setOpenedLevel] = useState<number>(1);
 
   const levelText = (key: string, level: number) => t(key).replace('{level}', String(level));
 
@@ -59,6 +61,7 @@ export default function QuestPage() {
       const progressResponse = await fetch(`/api/quest/progress/${userId}`);
       const progressData = await progressResponse.json();
       setProgress(progressData.progress);
+      setOpenedLevel(progressData.progress?.currentLevel || 1);
     }
 
     loadProgress();
@@ -69,6 +72,33 @@ export default function QuestPage() {
   function onSelectFile(level: number, event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0] || null;
     setFileByLevel((prev) => ({ ...prev, [level]: file }));
+  }
+
+  async function handleQrDetected(code: string) {
+    if (!userId) {
+      setMessage(t('quest.authNeeded'));
+      return;
+    }
+
+    const response = await fetch(`/api/quest/scan/${userId}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      setMessage(data.message || t('quest.qrDenied'));
+      return;
+    }
+
+    if (data.allowed) {
+      setOpenedLevel(data.level);
+      setMessage(data.message || levelText('quest.levelOpened', data.level));
+      const element = document.getElementById(`level-${data.level}`);
+      element?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
   }
 
   async function uploadForTask(task: QuestTask) {
@@ -136,6 +166,7 @@ export default function QuestPage() {
     }
 
     setProgress(data.progress);
+    setOpenedLevel(Math.min(5, task.level + 1));
     setMessage(levelText('quest.levelDone', task.level));
   }
 
@@ -148,18 +179,22 @@ export default function QuestPage() {
         </p>
       </div>
 
+      <QrScanner onDetected={handleQrDetected} />
+
       <div className="grid gap-4 md:grid-cols-2">
         {tasks.map((task) => {
           const completed = progress.completedLevels.includes(task.level);
           const isCurrent = task.level === progress.currentLevel;
+          const isOpened = task.level === openedLevel;
 
           return (
             <article
+              id={`level-${task.level}`}
               key={task.id}
               className={`rounded-lg border p-4 ${
                 completed
                   ? 'border-emerald-300 bg-emerald-50'
-                  : isCurrent
+                  : isCurrent || isOpened
                     ? 'border-amber-300 bg-amber-50'
                     : 'border-slate-200 bg-white'
               }`}
@@ -169,7 +204,7 @@ export default function QuestPage() {
               </h2>
               <p className="mt-2 text-sm text-slate-700">{task.description}</p>
 
-              {(task.type.includes('photo') || task.type.includes('video')) && (
+              {(task.type.includes('photo') || task.type.includes('video')) && (isCurrent || isOpened) && (
                 <div className="mt-3 space-y-2">
                   <label className="text-sm text-slate-700">{t('quest.uploadLabel')}</label>
                   <input
@@ -181,7 +216,7 @@ export default function QuestPage() {
                 </div>
               )}
 
-              {task.type.includes('question') && (
+              {task.type.includes('question') && (isCurrent || isOpened) && (
                 <div className="mt-3 space-y-2">
                   <p className="text-sm font-medium text-slate-800">{task.question}</p>
                   <textarea
