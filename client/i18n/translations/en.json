@@ -4,7 +4,8 @@
     "home": "Home",
     "about": "About",
     "login": "Login",
-    "register": "Register"
+    "register": "Register",
+    "quest": "Quest"
   },
   "language": {
     "label": "Language",
@@ -63,5 +64,19 @@
     "aiScore": "Score",
     "yes": "Yes",
     "no": "No"
+  },
+  "quest": {
+    "title": "Quest: Legacy of Kalyk Shynyk",
+    "progress": "Progress",
+    "loginRequired": "Please sign in first to track quest progress.",
+    "authNeeded": "Sign in is required.",
+    "fileRequired": "Select a file for level {level}.",
+    "answerRequired": "Answer is required for level {level}.",
+    "levelDone": "Level {level} completed!",
+    "uploadLabel": "Upload file:",
+    "answerPlaceholder": "Enter your answer",
+    "done": "Completed",
+    "completeNext": "Complete and go next",
+    "locked": "Locked"
   }
 }

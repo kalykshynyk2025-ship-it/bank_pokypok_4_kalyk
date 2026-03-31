@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from 'react';
 import { useI18n } from '@/context/i18n-context';
-import { saveToken } from '@/lib/auth';
+import { saveToken, saveUser } from '@/lib/auth';
 
 export default function RegisterPage() {
   const { t } = useI18n();
@@ -30,6 +30,7 @@ export default function RegisterPage() {
     }
 
     saveToken(data.token);
+    saveUser(data.user);
     setMessage(`${t('auth.registerSuccess')}, ${data.user.name}!`);
   }
 

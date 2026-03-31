@@ -25,6 +25,9 @@ npm run dev
 ## Quest + Upload API
 
 - `GET /api/quest/tasks` — список заданий квеста
+- `GET /api/quest/progress/:userId` — получить прогресс пользователя (например, 1/5)
+- `POST /api/quest/progress/:userId/complete` — отметить уровень завершённым
+  - body: `{ level, answer? }`
 - `POST /api/uploads` — загрузка фото/видео для задания
   - multipart fields:
     - `file`
