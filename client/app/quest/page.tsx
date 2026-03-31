@@ -179,8 +179,8 @@ export default function QuestPage() {
   }
 
   return (
-    <section className="space-y-6">
-      <div className="rounded-lg border border-slate-200 bg-white p-4">
+    <section className="space-y-6 fade-up">
+      <div className="soft-card soft-green">
         <h1 className="text-2xl font-bold">{t('quest.title')}</h1>
         <p className="mt-2 text-slate-700">
           {t('quest.progress')}: {doneCount}/5
@@ -189,7 +189,7 @@ export default function QuestPage() {
 
       <QrScanner onDetected={handleQrDetected} />
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {tasks.map((task) => {
           const completed = progress.completedLevels.includes(task.level);
           const isCurrent = task.level === progress.currentLevel;
@@ -199,12 +199,12 @@ export default function QuestPage() {
             <article
               id={`level-${task.level}`}
               key={task.id}
-              className={`rounded-lg border p-4 ${
+              className={`soft-card ${
                 completed
-                  ? 'border-emerald-300 bg-emerald-50'
+                  ? 'soft-green border-emerald-200'
                   : isCurrent || isOpened
-                    ? 'border-amber-300 bg-amber-50'
-                    : 'border-slate-200 bg-white'
+                    ? 'soft-yellow border-amber-200'
+                    : 'soft-pink border-rose-100'
               }`}
             >
               <h2 className="text-lg font-semibold">
@@ -246,7 +246,7 @@ export default function QuestPage() {
                 <button
                   onClick={() => completeLevel(task)}
                   disabled={!isCurrent || completed}
-                  className="rounded bg-slate-900 px-4 py-2 text-sm text-white disabled:cursor-not-allowed disabled:bg-slate-400"
+                  className="btn-primary disabled:cursor-not-allowed disabled:bg-slate-400"
                 >
                   {completed ? t('quest.done') : isCurrent ? t('quest.completeNext') : t('quest.locked')}
                 </button>
@@ -258,7 +258,7 @@ export default function QuestPage() {
 
 
       {questReward && (
-        <div className="rounded-xl border border-purple-300 bg-purple-50 p-6 text-center">
+        <div className="soft-card soft-pink text-center">
           <h2 className="text-2xl font-bold text-purple-900">{t('quest.spiritAccepted')}</h2>
           <p className="mt-2 text-purple-800">{t('quest.yourReward')}: <b>{questReward}</b></p>
         </div>

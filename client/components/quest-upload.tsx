@@ -90,7 +90,7 @@ export default function QuestUpload() {
   }
 
   return (
-    <section className="rounded-lg border border-slate-200 bg-white p-4">
+    <section className="soft-card soft-yellow">
       <h3 className="text-lg font-semibold">{t('upload.title')}</h3>
 
       <form onSubmit={onUpload} className="mt-3 space-y-3">
@@ -123,7 +123,7 @@ export default function QuestUpload() {
           </div>
         )}
 
-        <button type="submit" className="rounded border border-slate-300 bg-white px-4 py-2 text-sm text-slate-800">
+        <button type="submit" className="btn-secondary">
           {t('upload.uploadButton')}
         </button>
       </form>

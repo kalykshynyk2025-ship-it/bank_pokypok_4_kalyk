@@ -90,18 +90,18 @@ export default function CatalogPage() {
   }
 
   return (
-    <section className="space-y-6">
+    <section className="space-y-6 fade-up">
       <div>
         <h1 className="text-2xl font-bold">{t('catalog.title')}</h1>
         <p className="mt-2 text-slate-700">{t('catalog.subtitle')}</p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {products.map((product) => {
           const order = orders[product._id];
 
           return (
-            <article key={product._id} className="rounded-lg border border-slate-200 bg-white p-4">
+            <article key={product._id} className="soft-card soft-pink">
               <h2 className="text-lg font-semibold">{product.name}</h2>
               <p className="mt-2 text-sm text-slate-700">{product.description}</p>
               <p className="mt-2 text-sm font-medium text-slate-900">
@@ -111,21 +111,21 @@ export default function CatalogPage() {
               <div className="mt-4 flex flex-wrap gap-2">
                 <button
                   onClick={() => buyProduct(product)}
-                  className="rounded bg-slate-900 px-4 py-2 text-sm text-white"
+                  className="btn-primary"
                 >
                   {t('catalog.buy')}
                 </button>
 
                 <button
                   onClick={() => setMessage(`${t('catalog.questClicked')}: ${product.name}`)}
-                  className="rounded border border-slate-300 bg-white px-4 py-2 text-sm text-slate-800"
+                  className="btn-secondary"
                 >
                   {t('catalog.getByQuest')}
                 </button>
               </div>
 
               {order && (
-                <div className="mt-3 rounded border border-slate-200 bg-slate-50 p-3 text-sm">
+                <div className="mt-3 rounded-xl border border-white/60 bg-white/70 p-3 text-sm">
                   <p>
                     {t('catalog.orderStatus')}: <b>{order.status}</b>
                   </p>

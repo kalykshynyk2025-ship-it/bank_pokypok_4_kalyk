@@ -7,45 +7,29 @@ function Header() {
   const { language, setLanguage, t } = useI18n();
 
   return (
-    <header className="border-b border-slate-200 bg-white">
-      <nav className="mx-auto flex max-w-5xl flex-wrap items-center gap-4 px-6 py-4">
-        <Link href="/" className="mr-2 font-semibold text-slate-900">
+    <header className="ethno-pattern sticky top-0 z-20 border-b border-white/60 bg-white/70 backdrop-blur">
+      <nav className="mx-auto flex w-full max-w-6xl flex-wrap items-center gap-2 px-4 py-3 sm:gap-3 sm:px-6">
+        <Link href="/" className="mr-2 rounded-xl bg-white/80 px-3 py-1 font-semibold text-slate-900">
           {t('nav.brand')}
         </Link>
-        <Link href="/" className="text-slate-600 hover:text-slate-900">
-          {t('nav.home')}
-        </Link>
-        <Link href="/about" className="text-slate-600 hover:text-slate-900">
-          {t('nav.about')}
-        </Link>
-        <Link href="/quest" className="text-slate-600 hover:text-slate-900">
-          {t('nav.quest')}
-        </Link>
-        <Link href="/catalog" className="text-slate-600 hover:text-slate-900">
-          {t('nav.catalog')}
-        </Link>
-        <Link href="/login" className="text-slate-600 hover:text-slate-900">
-          {t('nav.login')}
-        </Link>
-        <Link href="/register" className="text-slate-600 hover:text-slate-900">
-          {t('nav.register')}
-        </Link>
-        <Link href="/profile" className="text-slate-600 hover:text-slate-900">
-          {t('nav.profile')}
-        </Link>
+        <Link href="/" className="text-sm text-slate-700 hover:text-slate-900">{t('nav.home')}</Link>
+        <Link href="/quest" className="text-sm text-slate-700 hover:text-slate-900">{t('nav.quest')}</Link>
+        <Link href="/catalog" className="text-sm text-slate-700 hover:text-slate-900">{t('nav.catalog')}</Link>
+        <Link href="/profile" className="text-sm text-slate-700 hover:text-slate-900">{t('nav.profile')}</Link>
 
-        <label className="ml-auto flex items-center gap-2 text-sm text-slate-700">
-          {t('language.label')}
+        <div className="ml-auto flex items-center gap-3">
+          <Link href="/login" className="text-sm text-slate-700 hover:text-slate-900">{t('nav.login')}</Link>
+          <Link href="/register" className="text-sm text-slate-700 hover:text-slate-900">{t('nav.register')}</Link>
           <select
             value={language}
             onChange={(event) => setLanguage(event.target.value as typeof language)}
-            className="rounded border border-slate-300 bg-white px-2 py-1"
+            className="rounded-xl border border-slate-200 bg-white/90 px-2 py-1 text-xs sm:text-sm"
           >
             <option value="ru">{t('language.ru')}</option>
             <option value="en">{t('language.en')}</option>
             <option value="mar">{t('language.mar')}</option>
           </select>
-        </label>
+        </div>
       </nav>
     </header>
   );
@@ -55,7 +39,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <I18nProvider>
       <Header />
-      <main className="mx-auto max-w-5xl px-6 py-8">{children}</main>
+      <main className="mx-auto w-full max-w-6xl px-4 py-6 sm:px-6">{children}</main>
     </I18nProvider>
   );
 }

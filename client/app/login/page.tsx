@@ -33,7 +33,7 @@ export default function LoginPage() {
   }
 
   return (
-    <section className="mx-auto max-w-md rounded-lg bg-white p-6 shadow-sm">
+    <section className="mx-auto max-w-md soft-card soft-pink p-6">
       <h1 className="mb-4 text-2xl font-semibold">{t('auth.loginTitle')}</h1>
 
       <form className="space-y-3" onSubmit={onSubmit}>
@@ -53,7 +53,7 @@ export default function LoginPage() {
           className="w-full rounded border border-slate-300 px-3 py-2"
           required
         />
-        <button type="submit" className="w-full rounded bg-slate-900 px-4 py-2 text-white">
+        <button type="submit" className="btn-primary w-full">
           {t('auth.loginButton')}
         </button>
       </form>

@@ -44,7 +44,7 @@ export default function ProfilePage() {
       <h1 className="text-2xl font-bold">{t('profile.title')}</h1>
 
       {profile && (
-        <div className="rounded-lg border border-slate-200 bg-white p-4">
+        <div className="soft-card soft-yellow">
           <p>
             <b>{t('profile.name')}:</b> {profile.name}
           </p>

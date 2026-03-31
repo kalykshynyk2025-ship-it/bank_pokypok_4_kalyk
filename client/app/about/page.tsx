@@ -9,7 +9,7 @@ export default function AboutPage() {
     <section className="space-y-4">
       <h1 className="text-3xl font-bold">{t('about.title')}</h1>
       <p className="text-slate-700">{t('about.description')}</p>
-      <button className="rounded border border-slate-300 bg-white px-4 py-2 text-sm text-slate-800">
+      <button className="btn-secondary">
         {t('buttons.back')}
       </button>
     </section>

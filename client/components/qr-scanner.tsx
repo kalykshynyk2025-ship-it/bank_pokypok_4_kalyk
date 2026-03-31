@@ -51,11 +51,11 @@ export default function QrScanner({ onDetected }: QrScannerProps) {
   }, [active, onDetected]);
 
   return (
-    <div className="rounded-lg border border-slate-200 bg-white p-4">
+    <div className="soft-card soft-yellow">
       <button
         type="button"
         onClick={() => setActive((prev) => !prev)}
-        className="rounded bg-slate-900 px-4 py-2 text-sm text-white"
+        className="btn-primary"
       >
         {active ? t('quest.stopScan') : t('quest.scanButton')}
       </button>

@@ -41,13 +41,13 @@ export default function HomePage() {
   }, [t]);
 
   return (
-    <section className="space-y-6">
+    <section className="space-y-5 fade-up">
       <div className="space-y-4">
         <h1 className="text-3xl font-bold">{t('home.title')}</h1>
         <p className="text-slate-700">{t('home.description')}</p>
       </div>
 
-      <div className="rounded-lg border border-slate-200 bg-white p-4">
+      <div className="soft-card soft-green">
         <h2 className="text-lg font-semibold">{t('home.backendTitle')}</h2>
         <p className="mt-2 text-sm text-slate-700">
           {t('home.status')}: <span className="font-medium">{backend.status}</span>
@@ -57,14 +57,14 @@ export default function HomePage() {
         </p>
       </div>
 
-      <div className="rounded-lg border border-amber-200 bg-amber-50 p-4">
+      <div className="soft-card soft-yellow">
         <h2 className="text-lg font-semibold">{t('home.questTitle')}</h2>
         <p className="mt-2 text-sm text-slate-700">{t('home.questDescription')}</p>
         <div className="mt-4 flex gap-3">
-          <Link href="/quest" className="rounded bg-slate-900 px-4 py-2 text-sm text-white">
+          <Link href="/quest" className="btn-primary">
             {t('home.startQuest')}
           </Link>
-          <Link href="/catalog" className="rounded border border-slate-300 bg-white px-4 py-2 text-sm text-slate-800">
+          <Link href="/catalog" className="btn-secondary">
             {t('home.shopButton')}
           </Link>
         </div>
