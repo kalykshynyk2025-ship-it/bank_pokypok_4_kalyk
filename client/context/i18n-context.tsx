@@ -7,7 +7,9 @@ import ru from '@/i18n/translations/ru.json';
 
 export type Language = 'ru' | 'en' | 'mar';
 
-type TranslationTree = Record<string, string | TranslationTree>;
+interface TranslationTree {
+  [key: string]: string | TranslationTree;
+}
 
 const translations: Record<Language, TranslationTree> = { ru, en, mar };
 
