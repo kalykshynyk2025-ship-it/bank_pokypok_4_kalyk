@@ -94,6 +94,7 @@ PORT=4000
 MONGODB_URI=mongodb://127.0.0.1:27017/bank_pokupok
 JWT_SECRET=dev-secret
 AI_PROVIDER=mock
+ALLOW_NO_DB=true
 ```
 
 ## Команды
@@ -118,3 +119,6 @@ Frontend QR scanner: используется BarcodeDetector API (с fallback �
 
 
 После завершения 5 уровней квеста пользователю выдаётся случайная награда и сохраняется в профиле.
+
+
+Если MongoDB не запущен, сервер может стартовать в режиме без БД при `ALLOW_NO_DB=true`.
