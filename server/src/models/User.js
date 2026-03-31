@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ['RU', 'EN', 'MAR'],
       default: 'RU'
+    },
+    rewards: {
+      type: [String],
+      default: []
     }
   },
   {

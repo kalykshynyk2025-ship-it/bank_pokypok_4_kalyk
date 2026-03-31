@@ -30,6 +30,9 @@ function Header() {
         <Link href="/register" className="text-slate-600 hover:text-slate-900">
           {t('nav.register')}
         </Link>
+        <Link href="/profile" className="text-slate-600 hover:text-slate-900">
+          {t('nav.profile')}
+        </Link>
 
         <label className="ml-auto flex items-center gap-2 text-sm text-slate-700">
           {t('language.label')}

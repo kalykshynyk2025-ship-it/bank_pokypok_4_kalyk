@@ -6,7 +6,8 @@
     "login": "Вход",
     "register": "Регистрация",
     "quest": "Квест",
-    "catalog": "Каталог"
+    "catalog": "Каталог",
+    "profile": "Профиль"
   },
   "language": {
     "label": "Язык",
@@ -82,7 +83,9 @@
     "scanButton": "Сканировать",
     "stopScan": "Остановить сканер",
     "qrDenied": "Доступ к уровню запрещён",
-    "levelOpened": "Открыт уровень {level}"
+    "levelOpened": "Открыт уровень {level}",
+    "spiritAccepted": "Духи приняли тебя",
+    "yourReward": "Твоя награда"
   },
   "catalog": {
     "title": "Каталог товаров",
@@ -97,5 +100,14 @@
     "orderCreated": "Заказ создан",
     "orderStatus": "Статус заказа",
     "payWithVtb": "Оплатить через VTB Pay"
+  },
+  "profile": {
+    "title": "Профиль",
+    "name": "Имя",
+    "email": "Email",
+    "rewards": "Награды",
+    "noRewards": "Наград пока нет",
+    "loginRequired": "Войдите, чтобы увидеть профиль",
+    "loadError": "Ошибка загрузки профиля"
   }
 }

@@ -29,6 +29,7 @@ export default function QuestPage() {
   const [fileByLevel, setFileByLevel] = useState<Record<number, File | null>>({});
   const [message, setMessage] = useState('');
   const [openedLevel, setOpenedLevel] = useState<number>(1);
+  const [questReward, setQuestReward] = useState<string | null>(null);
 
   const levelText = (key: string, level: number) => t(key).replace('{level}', String(level));
 
@@ -167,6 +168,13 @@ export default function QuestPage() {
 
     setProgress(data.progress);
     setOpenedLevel(Math.min(5, task.level + 1));
+
+    if (data.questCompleted) {
+      setQuestReward(data.reward || null);
+      setMessage(t('quest.spiritAccepted'));
+      return;
+    }
+
     setMessage(levelText('quest.levelDone', task.level));
   }
 
@@ -247,6 +255,14 @@ export default function QuestPage() {
           );
         })}
       </div>
+
+
+      {questReward && (
+        <div className="rounded-xl border border-purple-300 bg-purple-50 p-6 text-center">
+          <h2 className="text-2xl font-bold text-purple-900">{t('quest.spiritAccepted')}</h2>
+          <p className="mt-2 text-purple-800">{t('quest.yourReward')}: <b>{questReward}</b></p>
+        </div>
+      )}
 
       {message && <p className="text-sm text-slate-700">{message}</p>}
     </section>

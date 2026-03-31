@@ -6,7 +6,8 @@
     "login": "Login",
     "register": "Register",
     "quest": "Quest",
-    "catalog": "Catalog"
+    "catalog": "Catalog",
+    "profile": "Profile"
   },
   "language": {
     "label": "Language",
@@ -82,7 +83,9 @@
     "scanButton": "Scan",
     "stopScan": "Stop scanner",
     "qrDenied": "Access to this level is denied",
-    "levelOpened": "Level {level} opened"
+    "levelOpened": "Level {level} opened",
+    "spiritAccepted": "The spirits accepted you",
+    "yourReward": "Your reward"
   },
   "catalog": {
     "title": "Product catalog",
@@ -97,5 +100,14 @@
     "orderCreated": "Order created",
     "orderStatus": "Order status",
     "payWithVtb": "Pay with VTB Pay"
+  },
+  "profile": {
+    "title": "Profile",
+    "name": "Name",
+    "email": "Email",
+    "rewards": "Rewards",
+    "noRewards": "No rewards yet",
+    "loginRequired": "Sign in to view profile",
+    "loadError": "Failed to load profile"
   }
 }

@@ -1,5 +1,6 @@
 const express = require('express');
 const QuestProgress = require('../models/QuestProgress');
+const User = require('../models/User');
 
 const router = express.Router();
 
@@ -43,6 +44,8 @@ const questTasks = [
   }
 ];
 
+const rewardPool = ['Амулет ветра', 'Талисман леса', 'Камень предков', 'Оберег солнца'];
+
 function parseQrCodeToTaskId(code) {
   const normalized = String(code || '').trim().toLowerCase();
   const match = normalized.match(/lvl[1-5]/);
@@ -66,6 +69,11 @@ async function getOrCreateProgress(userId) {
   }
 
   return progress;
+}
+
+function getRandomReward() {
+  const index = Math.floor(Math.random() * rewardPool.length);
+  return rewardPool[index];
 }
 
 router.get('/tasks', (_req, res) => {
@@ -143,9 +151,24 @@ router.post('/progress/:userId/complete', async (req, res) => {
 
   await progress.save();
 
+  let reward = null;
+  const questCompleted = progress.completedLevels.length >= 5;
+
+  if (questCompleted) {
+    const user = await User.findById(userId);
+
+    if (user) {
+      reward = getRandomReward();
+      user.rewards.push(reward);
+      await user.save();
+    }
+  }
+
   return res.json({
     message: 'Прогресс обновлён',
-    progress
+    progress,
+    questCompleted,
+    reward
   });
 });
 

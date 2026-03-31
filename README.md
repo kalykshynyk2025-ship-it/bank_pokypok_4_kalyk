@@ -43,6 +43,10 @@ npm run dev
 
 - `GET /api/products` — каталог товаров (сумка, игрушка, украшения, открытка)
 
+## Profile API
+
+- `GET /api/users/:userId/profile` — профиль пользователя и список наград
+
 ## Orders + VTB Pay API
 
 - `POST /api/orders/create` — создать заказ на товар
@@ -101,3 +105,6 @@ npm run start
 
 
 Frontend QR scanner: используется библиотека `html5-qrcode` на странице `/quest`.
+
+
+После завершения 5 уровней квеста пользователю выдаётся случайная награда и сохраняется в профиле.

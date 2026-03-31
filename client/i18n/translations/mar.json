@@ -6,7 +6,8 @@
     "login": "Пурлаш",
     "register": "Регистраций",
     "quest": "Квест",
-    "catalog": "Каталог"
+    "catalog": "Каталог",
+    "profile": "Профиль"
   },
   "language": {
     "label": "Йылме",
@@ -82,7 +83,9 @@
     "scanButton": "Сканироватлаш",
     "stopScan": "Сканерым чарнаш",
     "qrDenied": "Тиде уровеньыш пурымаш чарналтын",
-    "levelOpened": "{level} уровень почылтеш"
+    "levelOpened": "{level} уровень почылтеш",
+    "spiritAccepted": "Шӱвыр-влак тыйым налын",
+    "yourReward": "Тыйын наградо"
   },
   "catalog": {
     "title": "Товар каталог",
@@ -97,5 +100,14 @@
     "orderCreated": "Заказ ышталтын",
     "orderStatus": "Заказ статус",
     "payWithVtb": "VTB Pay гоч тӱлыман"
+  },
+  "profile": {
+    "title": "Профиль",
+    "name": "Лӱм",
+    "email": "Email",
+    "rewards": "Наградо",
+    "noRewards": "Наградо али уке",
+    "loginRequired": "Профильым ужаш пураш кӱлеш",
+    "loadError": "Профильым налмаш йоҥылыш"
   }
 }
