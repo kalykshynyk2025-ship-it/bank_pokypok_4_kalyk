@@ -1,16 +1,18 @@
 'use client';
 
 import { FormEvent, useState } from 'react';
+import { useI18n } from '@/context/i18n-context';
 import { saveToken } from '@/lib/auth';
 
 export default function LoginPage() {
+  const { t } = useI18n();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
 
   async function onSubmit(event: FormEvent) {
     event.preventDefault();
-    setMessage('Загрузка...');
+    setMessage(t('auth.loading'));
 
     const response = await fetch('/api/auth/login', {
       method: 'POST',
@@ -21,22 +23,22 @@ export default function LoginPage() {
     const data = await response.json();
 
     if (!response.ok) {
-      setMessage(data.message || 'Ошибка входа');
+      setMessage(data.message || t('auth.loginError'));
       return;
     }
 
     saveToken(data.token);
-    setMessage(`Вход выполнен. Добро пожаловать, ${data.user.name}!`);
+    setMessage(`${t('auth.loginSuccess')}, ${data.user.name}!`);
   }
 
   return (
     <section className="mx-auto max-w-md rounded-lg bg-white p-6 shadow-sm">
-      <h1 className="mb-4 text-2xl font-semibold">Вход</h1>
+      <h1 className="mb-4 text-2xl font-semibold">{t('auth.loginTitle')}</h1>
 
       <form className="space-y-3" onSubmit={onSubmit}>
         <input
           type="email"
-          placeholder="Email"
+          placeholder={t('auth.email')}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="w-full rounded border border-slate-300 px-3 py-2"
@@ -44,14 +46,14 @@ export default function LoginPage() {
         />
         <input
           type="password"
-          placeholder="Пароль"
+          placeholder={t('auth.password')}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="w-full rounded border border-slate-300 px-3 py-2"
           required
         />
         <button type="submit" className="w-full rounded bg-slate-900 px-4 py-2 text-white">
-          Войти
+          {t('auth.loginButton')}
         </button>
       </form>
 

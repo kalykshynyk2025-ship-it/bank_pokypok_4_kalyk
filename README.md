@@ -1,7 +1,7 @@
 # Банк покупок — стартовый проект
 
 Структура:
-- `client` — Next.js + Tailwind CSS
+- `client` — Next.js + Tailwind CSS + i18n (RU/EN/MAR)
 - `server` — Node.js + Express + JWT + MongoDB
 
 ## Быстрый старт
@@ -21,6 +21,12 @@ npm run dev
   - body: `{ name, email, password, language }`
 - `POST /api/auth/login`
   - body: `{ email, password }`
+
+## i18n
+
+- Поддерживаемые языки: русский (`ru`), английский (`en`), марийский (`mar`)
+- JSON-переводы находятся в `client/i18n/translations`
+- Переключатель языка доступен в верхней навигации
 
 ## Переменные окружения (server)
 

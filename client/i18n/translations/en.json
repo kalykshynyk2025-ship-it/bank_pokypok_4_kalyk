@@ -1,0 +1,51 @@
+{
+  "nav": {
+    "brand": "Shopping Bank",
+    "home": "Home",
+    "about": "About",
+    "login": "Login",
+    "register": "Register"
+  },
+  "language": {
+    "label": "Language",
+    "ru": "Russian",
+    "en": "English",
+    "mar": "Mari"
+  },
+  "home": {
+    "title": "Home page",
+    "description": "This is a starter template with Next.js + Tailwind CSS on the frontend and Express on the backend.",
+    "backendTitle": "Backend connection check",
+    "status": "Status",
+    "message": "Message",
+    "backendError": "Backend is not responding",
+    "backendUnavailable": "Backend is unavailable",
+    "questTitle": "QR Quest: Legacy of Kalyk Shynyk",
+    "questDescription": "Complete 5 levels, scan QR codes, upload photo/video, and unlock rewards.",
+    "startQuest": "Start quest",
+    "shopButton": "Open catalog"
+  },
+  "about": {
+    "title": "About project",
+    "description": "Placeholder section for quest details, levels, rules, and product catalog."
+  },
+  "auth": {
+    "loading": "Loading...",
+    "loginTitle": "Login",
+    "registerTitle": "Register",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "loginButton": "Login",
+    "registerButton": "Create account",
+    "loginError": "Login error",
+    "registerError": "Registration error",
+    "loginSuccess": "Login successful. Welcome",
+    "registerSuccess": "Registration successful. Welcome"
+  },
+  "buttons": {
+    "save": "Save",
+    "continue": "Continue",
+    "back": "Back"
+  }
+}

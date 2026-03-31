@@ -1,0 +1,51 @@
+{
+  "nav": {
+    "brand": "Налыме банк",
+    "home": "Тӱҥ",
+    "about": "Проект нерген",
+    "login": "Пурлаш",
+    "register": "Регистраций"
+  },
+  "language": {
+    "label": "Йылме",
+    "ru": "Руш",
+    "en": "Англий",
+    "mar": "Марий"
+  },
+  "home": {
+    "title": "Тӱҥ лаштык",
+    "description": "Тиде старт шаблон: frontend Next.js + Tailwind CSS, backend Express.",
+    "backendTitle": "Backend кылым ужаш",
+    "status": "Статус",
+    "message": "Шомак",
+    "backendError": "Backend вашталтеш огыл",
+    "backendUnavailable": "Backend лийын огыл",
+    "questTitle": "QR-квест: Калык шынык наследий",
+    "questDescription": "5 уровеньым эртен, QR-код-влакым лудаш, фото/видеом колташ да наградым налаш.",
+    "startQuest": "Квестым тӱҥалаш",
+    "shopButton": "Каталогым почаш"
+  },
+  "about": {
+    "title": "Проект нерген",
+    "description": "Квест, уровень, правил да товар каталог нерген лаштык-заглушка."
+  },
+  "auth": {
+    "loading": "Вучена...",
+    "loginTitle": "Пурлаш",
+    "registerTitle": "Регистраций",
+    "name": "Лӱм",
+    "email": "Email",
+    "password": "Пароль",
+    "loginButton": "Пураш",
+    "registerButton": "Регистраций ышташ",
+    "loginError": "Пурымаш йоҥылыш",
+    "registerError": "Регистраций йоҥылыш",
+    "loginSuccess": "Пурымаш сайын. Поро тол",
+    "registerSuccess": "Регистраций сайын. Поро тол"
+  },
+  "buttons": {
+    "save": "Аралаш",
+    "continue": "Умбаке",
+    "back": "Мӧҥгеш"
+  }
+}

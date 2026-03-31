@@ -1,0 +1,51 @@
+{
+  "nav": {
+    "brand": "Банк покупок",
+    "home": "Главная",
+    "about": "О проекте",
+    "login": "Вход",
+    "register": "Регистрация"
+  },
+  "language": {
+    "label": "Язык",
+    "ru": "Русский",
+    "en": "English",
+    "mar": "Марий"
+  },
+  "home": {
+    "title": "Главная страница",
+    "description": "Это стартовый шаблон проекта с Next.js + Tailwind CSS на frontend и Express на backend.",
+    "backendTitle": "Проверка подключения к backend",
+    "status": "Статус",
+    "message": "Сообщение",
+    "backendError": "Backend не отвечает",
+    "backendUnavailable": "Backend недоступен",
+    "questTitle": "QR-квест: Наследие Калык шынык",
+    "questDescription": "Пройдите 5 уровней, сканируйте QR-коды, загружайте фото/видео и открывайте награды.",
+    "startQuest": "Начать квест",
+    "shopButton": "Открыть каталог"
+  },
+  "about": {
+    "title": "О проекте",
+    "description": "Раздел-заглушка для описания квеста, уровней, правил и каталога товаров."
+  },
+  "auth": {
+    "loading": "Загрузка...",
+    "loginTitle": "Вход",
+    "registerTitle": "Регистрация",
+    "name": "Имя",
+    "email": "Email",
+    "password": "Пароль",
+    "loginButton": "Войти",
+    "registerButton": "Зарегистрироваться",
+    "loginError": "Ошибка входа",
+    "registerError": "Ошибка регистрации",
+    "loginSuccess": "Вход выполнен. Добро пожаловать",
+    "registerSuccess": "Регистрация успешна. Добро пожаловать"
+  },
+  "buttons": {
+    "save": "Сохранить",
+    "continue": "Продолжить",
+    "back": "Назад"
+  }
+}
