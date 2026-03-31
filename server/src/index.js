@@ -8,6 +8,8 @@ const { createUploadRouter } = require('./routes/uploads');
 const { createAiRouter } = require('./routes/ai');
 const { createAiService } = require('./services/ai');
 const productRoutes = require('./routes/products');
+const orderRoutes = require('./routes/orders');
+const paymentRoutes = require('./routes/payments');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -31,6 +33,8 @@ app.use('/api/quest', questRouter);
 app.use('/api/uploads', createUploadRouter(aiService));
 app.use('/api/ai', createAiRouter(aiService));
 app.use('/api/products', productRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/payments', paymentRoutes);
 
 app.use((err, _req, res, _next) => {
   console.error(err);

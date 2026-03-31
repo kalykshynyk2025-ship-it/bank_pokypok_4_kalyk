@@ -91,6 +91,11 @@
     "buy": "Buy",
     "getByQuest": "Get via quest",
     "buyClicked": "Purchase selected",
-    "questClicked": "Quest reward selected"
+    "questClicked": "Quest reward selected",
+    "loginNeeded": "Sign in to purchase",
+    "orderError": "Failed to create order",
+    "orderCreated": "Order created",
+    "orderStatus": "Order status",
+    "payWithVtb": "Pay with VTB Pay"
   }
 }

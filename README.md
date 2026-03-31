@@ -43,6 +43,15 @@ npm run dev
 
 - `GET /api/products` — каталог товаров (сумка, игрушка, украшения, открытка)
 
+## Orders + VTB Pay API
+
+- `POST /api/orders/create` — создать заказ на товар
+  - body: `{ userId, productId }`
+- `GET /api/orders/:orderId/status` — получить статус заказа
+- `GET /api/payments/vtbpay/mock-success?orderId=...&paymentId=...` — mock подтверждение оплаты VTB Pay
+
+После оплаты статус заказа меняется на `paid`.
+
 ## Mock AI API
 
 - `POST /api/ai/validate`

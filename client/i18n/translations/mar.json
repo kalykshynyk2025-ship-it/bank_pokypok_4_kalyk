@@ -91,6 +91,11 @@
     "buy": "Налаш",
     "getByQuest": "Квест гоч налаш",
     "buyClicked": "Налымаш ойырен",
-    "questClicked": "Квест гоч налмаш ойырен"
+    "questClicked": "Квест гоч налмаш ойырен",
+    "loginNeeded": "Налымашлан аккаунт дене пурыза",
+    "orderError": "Заказым ыштымаш йоҥылыш",
+    "orderCreated": "Заказ ышталтын",
+    "orderStatus": "Заказ статус",
+    "payWithVtb": "VTB Pay гоч тӱлыман"
   }
 }
