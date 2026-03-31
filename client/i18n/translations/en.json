@@ -109,5 +109,15 @@
     "noRewards": "No rewards yet",
     "loginRequired": "Sign in to view profile",
     "loadError": "Failed to load profile"
+  },
+  "story": {
+    "introTitle": "Quest Prologue",
+    "introLine": "You entered the spirits space",
+    "ornamentLine": "The ornament is the language of ancestors",
+    "notAloneLine": "You are not alone",
+    "shopLine": "The market keeps traces of memory",
+    "finalQuestionLine": "The final question opens the path to reward",
+    "finalLine": "The spirits heard your path and left you a sign",
+    "beginJourney": "Begin the journey"
   }
 }

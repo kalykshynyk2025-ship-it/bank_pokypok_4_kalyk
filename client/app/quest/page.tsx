@@ -30,6 +30,15 @@ export default function QuestPage() {
   const [message, setMessage] = useState('');
   const [openedLevel, setOpenedLevel] = useState<number>(1);
   const [questReward, setQuestReward] = useState<string | null>(null);
+  const [showIntro, setShowIntro] = useState(true);
+
+  const levelStory: Record<number, string> = {
+    1: t('story.introLine'),
+    2: t('story.ornamentLine'),
+    3: t('story.shopLine'),
+    4: t('story.notAloneLine'),
+    5: t('story.finalQuestionLine')
+  };
 
   const levelText = (key: string, level: number) => t(key).replace('{level}', String(level));
 
@@ -187,6 +196,17 @@ export default function QuestPage() {
         </p>
       </div>
 
+
+      {showIntro && (
+        <div className="soft-card soft-pink text-center">
+          <h2 className="text-2xl font-bold text-purple-900">{t('story.introTitle')}</h2>
+          <p className="mt-2 text-purple-800">{t('story.introLine')}</p>
+          <button className="btn-primary mt-4" onClick={() => setShowIntro(false)}>
+            {t('story.beginJourney')}
+          </button>
+        </div>
+      )}
+
       <QrScanner onDetected={handleQrDetected} />
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -211,6 +231,7 @@ export default function QuestPage() {
                 {task.level}. {task.title}
               </h2>
               <p className="mt-2 text-sm text-slate-700">{task.description}</p>
+              <p className="mt-2 text-sm italic text-purple-800">{levelStory[task.level]}</p>
 
               {(task.type.includes('photo') || task.type.includes('video')) && (isCurrent || isOpened) && (
                 <div className="mt-3 space-y-2">
@@ -261,6 +282,7 @@ export default function QuestPage() {
         <div className="soft-card soft-pink text-center">
           <h2 className="text-2xl font-bold text-purple-900">{t('quest.spiritAccepted')}</h2>
           <p className="mt-2 text-purple-800">{t('quest.yourReward')}: <b>{questReward}</b></p>
+          <p className="mt-2 text-sm text-purple-700">{t('story.finalLine')}</p>
         </div>
       )}
 
