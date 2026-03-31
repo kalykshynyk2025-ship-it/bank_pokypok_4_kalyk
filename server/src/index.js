@@ -4,11 +4,15 @@ const path = require('path');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/auth');
 const { questRouter } = require('./routes/quest');
-const uploadRoutes = require('./routes/uploads');
+const { createUploadRouter } = require('./routes/uploads');
+const { createAiRouter } = require('./routes/ai');
+const { createAiService } = require('./services/ai');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/bank_pokupok';
+
+const aiService = createAiService();
 
 app.use(cors());
 app.use(express.json());
@@ -23,7 +27,8 @@ app.get('/api/health', (_req, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/quest', questRouter);
-app.use('/api/uploads', uploadRoutes);
+app.use('/api/uploads', createUploadRouter(aiService));
+app.use('/api/ai', createAiRouter(aiService));
 
 app.use((err, _req, res, _next) => {
   console.error(err);

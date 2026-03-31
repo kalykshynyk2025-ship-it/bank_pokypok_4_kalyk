@@ -57,6 +57,11 @@
     "uploading": "Uploading file...",
     "uploadSuccess": "File uploaded and linked to quest task",
     "uploadError": "Upload failed",
-    "selectError": "Select task and file"
+    "selectError": "Select task and file",
+    "aiPerson": "AI: person detected",
+    "aiGreen": "AI: green color detected",
+    "aiScore": "Score",
+    "yes": "Yes",
+    "no": "No"
   }
 }

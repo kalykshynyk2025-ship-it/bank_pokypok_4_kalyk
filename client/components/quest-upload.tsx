@@ -8,12 +8,21 @@ interface QuestTask {
   title: string;
 }
 
+interface AiResult {
+  checks: {
+    hasPerson: boolean;
+    hasGreenColor: boolean;
+  };
+  score: number;
+}
+
 export default function QuestUpload() {
   const { t } = useI18n();
   const [tasks, setTasks] = useState<QuestTask[]>([]);
   const [questTaskId, setQuestTaskId] = useState('');
   const [file, setFile] = useState<File | null>(null);
   const [message, setMessage] = useState('');
+  const [aiResult, setAiResult] = useState<AiResult | null>(null);
 
   const previewUrl = useMemo(() => {
     if (!file) {
@@ -47,6 +56,7 @@ export default function QuestUpload() {
   function onFileChange(event: ChangeEvent<HTMLInputElement>) {
     const nextFile = event.target.files?.[0] || null;
     setFile(nextFile);
+    setAiResult(null);
   }
 
   async function onUpload(event: FormEvent) {
@@ -75,6 +85,7 @@ export default function QuestUpload() {
       return;
     }
 
+    setAiResult(data.aiValidation || null);
     setMessage(t('upload.uploadSuccess'));
   }
 
@@ -118,6 +129,20 @@ export default function QuestUpload() {
       </form>
 
       {message && <p className="mt-3 text-sm text-slate-700">{message}</p>}
+
+      {aiResult && (
+        <div className="mt-3 rounded border border-emerald-200 bg-emerald-50 p-3 text-sm text-slate-700">
+          <p>
+            {t('upload.aiPerson')}: {aiResult.checks.hasPerson ? t('upload.yes') : t('upload.no')}
+          </p>
+          <p>
+            {t('upload.aiGreen')}: {aiResult.checks.hasGreenColor ? t('upload.yes') : t('upload.no')}
+          </p>
+          <p>
+            {t('upload.aiScore')}: {aiResult.score}
+          </p>
+        </div>
+      )}
     </section>
   );
 }
