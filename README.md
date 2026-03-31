@@ -38,6 +38,11 @@ npm run dev
 
 Загруженные файлы доступны по `/uploads/<filename>`.
 
+
+## Products API
+
+- `GET /api/products` — каталог товаров (сумка, игрушка, украшения, открытка)
+
 ## Mock AI API
 
 - `POST /api/ai/validate`

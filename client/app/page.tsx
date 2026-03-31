@@ -64,9 +64,9 @@ export default function HomePage() {
           <Link href="/quest" className="rounded bg-slate-900 px-4 py-2 text-sm text-white">
             {t('home.startQuest')}
           </Link>
-          <button className="rounded border border-slate-300 bg-white px-4 py-2 text-sm text-slate-800">
+          <Link href="/catalog" className="rounded border border-slate-300 bg-white px-4 py-2 text-sm text-slate-800">
             {t('home.shopButton')}
-          </button>
+          </Link>
         </div>
       </div>
 

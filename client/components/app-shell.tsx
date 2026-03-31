@@ -21,6 +21,9 @@ function Header() {
         <Link href="/quest" className="text-slate-600 hover:text-slate-900">
           {t('nav.quest')}
         </Link>
+        <Link href="/catalog" className="text-slate-600 hover:text-slate-900">
+          {t('nav.catalog')}
+        </Link>
         <Link href="/login" className="text-slate-600 hover:text-slate-900">
           {t('nav.login')}
         </Link>

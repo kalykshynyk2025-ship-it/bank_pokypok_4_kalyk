@@ -5,7 +5,8 @@
     "about": "About",
     "login": "Login",
     "register": "Register",
-    "quest": "Quest"
+    "quest": "Quest",
+    "catalog": "Catalog"
   },
   "language": {
     "label": "Language",
@@ -82,5 +83,14 @@
     "stopScan": "Stop scanner",
     "qrDenied": "Access to this level is denied",
     "levelOpened": "Level {level} opened"
+  },
+  "catalog": {
+    "title": "Product catalog",
+    "subtitle": "Choose a product and buy it or get it through the quest.",
+    "price": "Price",
+    "buy": "Buy",
+    "getByQuest": "Get via quest",
+    "buyClicked": "Purchase selected",
+    "questClicked": "Quest reward selected"
   }
 }
