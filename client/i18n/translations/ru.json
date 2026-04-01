@@ -1,0 +1,125 @@
+{
+  "nav": {
+    "brand": "Банк покупок",
+    "home": "Главная",
+    "about": "О проекте",
+    "login": "Вход",
+    "register": "Регистрация",
+    "quest": "Квест",
+    "catalog": "Каталог",
+    "profile": "Профиль",
+    "admin": "Админ"
+  },
+  "language": {
+    "label": "Язык",
+    "ru": "Русский",
+    "en": "English",
+    "mar": "Марий"
+  },
+  "home": {
+    "title": "Главная страница",
+    "description": "Это стартовый шаблон проекта с Next.js + Tailwind CSS на frontend и Express на backend.",
+    "backendTitle": "Проверка подключения к backend",
+    "status": "Статус",
+    "message": "Сообщение",
+    "backendError": "Backend не отвечает",
+    "backendUnavailable": "Backend недоступен",
+    "questTitle": "QR-квест: Наследие Калык шынык",
+    "questDescription": "Пройдите 5 уровней, сканируйте QR-коды, загружайте фото/видео и открывайте награды.",
+    "startQuest": "Начать квест",
+    "shopButton": "Открыть каталог"
+  },
+  "about": {
+    "title": "О проекте",
+    "description": "Раздел-заглушка для описания квеста, уровней, правил и каталога товаров."
+  },
+  "auth": {
+    "loading": "Загрузка...",
+    "loginTitle": "Вход",
+    "registerTitle": "Регистрация",
+    "name": "Имя",
+    "email": "Email",
+    "password": "Пароль",
+    "loginButton": "Войти",
+    "registerButton": "Зарегистрироваться",
+    "loginError": "Ошибка входа",
+    "registerError": "Ошибка регистрации",
+    "loginSuccess": "Вход выполнен. Добро пожаловать",
+    "registerSuccess": "Регистрация успешна. Добро пожаловать"
+  },
+  "buttons": {
+    "save": "Сохранить",
+    "continue": "Продолжить",
+    "back": "Назад"
+  },
+  "upload": {
+    "title": "Загрузка файла для задания",
+    "taskLabel": "Выберите задание квеста",
+    "pickFile": "Выбрать файл",
+    "preview": "Предпросмотр",
+    "uploadButton": "Загрузить",
+    "uploading": "Загрузка файла...",
+    "uploadSuccess": "Файл успешно загружен и связан с заданием",
+    "uploadError": "Ошибка загрузки файла",
+    "selectError": "Выберите задание и файл",
+    "aiPerson": "AI: есть человек",
+    "aiGreen": "AI: есть зелёный цвет",
+    "aiScore": "Оценка",
+    "yes": "Да",
+    "no": "Нет"
+  },
+  "quest": {
+    "title": "Квест: Наследие Калык шынык",
+    "progress": "Прогресс",
+    "loginRequired": "Сначала войдите в аккаунт, чтобы вести прогресс квеста.",
+    "authNeeded": "Нужен вход в аккаунт.",
+    "fileRequired": "Для уровня {level} нужно выбрать файл.",
+    "answerRequired": "Для уровня {level} нужен ответ на вопрос.",
+    "levelDone": "Уровень {level} завершён!",
+    "uploadLabel": "Загрузите файл:",
+    "answerPlaceholder": "Введите ответ",
+    "done": "Завершено",
+    "completeNext": "Выполнить и перейти дальше",
+    "locked": "Заблокировано",
+    "scanButton": "Сканировать",
+    "stopScan": "Остановить сканер",
+    "qrDenied": "Доступ к уровню запрещён",
+    "levelOpened": "Открыт уровень {level}",
+    "spiritAccepted": "Духи приняли тебя",
+    "yourReward": "Твоя награда",
+    "chooseMall": "Выбери ТЦ"
+  },
+  "catalog": {
+    "title": "Каталог товаров",
+    "subtitle": "Выберите товар и оформите покупку или получите его через квест.",
+    "price": "Цена",
+    "buy": "Купить",
+    "getByQuest": "Получить через квест",
+    "buyClicked": "Выбрана покупка",
+    "questClicked": "Выбрано получение через квест",
+    "loginNeeded": "Войдите в аккаунт для покупки",
+    "orderError": "Ошибка создания заказа",
+    "orderCreated": "Заказ создан",
+    "orderStatus": "Статус заказа",
+    "payWithVtb": "Оплатить через VTB Pay"
+  },
+  "profile": {
+    "title": "Профиль",
+    "name": "Имя",
+    "email": "Email",
+    "rewards": "Награды",
+    "noRewards": "Наград пока нет",
+    "loginRequired": "Войдите, чтобы увидеть профиль",
+    "loadError": "Ошибка загрузки профиля"
+  },
+  "story": {
+    "introTitle": "Пролог квеста",
+    "introLine": "Ты вошёл в пространство духов",
+    "ornamentLine": "Узор — язык предков",
+    "notAloneLine": "Ты не один",
+    "shopLine": "Торговая площадь хранит следы памяти",
+    "finalQuestionLine": "Последний вопрос откроет путь к награде",
+    "finalLine": "Духи услышали твой путь и оставили тебе знак",
+    "beginJourney": "Начать путь"
+  }
+}

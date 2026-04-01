@@ -1,0 +1,125 @@
+{
+  "nav": {
+    "brand": "Shopping Bank",
+    "home": "Home",
+    "about": "About",
+    "login": "Login",
+    "register": "Register",
+    "quest": "Quest",
+    "catalog": "Catalog",
+    "profile": "Profile",
+    "admin": "Admin"
+  },
+  "language": {
+    "label": "Language",
+    "ru": "Russian",
+    "en": "English",
+    "mar": "Mari"
+  },
+  "home": {
+    "title": "Home page",
+    "description": "This is a starter template with Next.js + Tailwind CSS on the frontend and Express on the backend.",
+    "backendTitle": "Backend connection check",
+    "status": "Status",
+    "message": "Message",
+    "backendError": "Backend is not responding",
+    "backendUnavailable": "Backend is unavailable",
+    "questTitle": "QR Quest: Legacy of Kalyk Shynyk",
+    "questDescription": "Complete 5 levels, scan QR codes, upload photo/video, and unlock rewards.",
+    "startQuest": "Start quest",
+    "shopButton": "Open catalog"
+  },
+  "about": {
+    "title": "About project",
+    "description": "Placeholder section for quest details, levels, rules, and product catalog."
+  },
+  "auth": {
+    "loading": "Loading...",
+    "loginTitle": "Login",
+    "registerTitle": "Register",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "loginButton": "Login",
+    "registerButton": "Create account",
+    "loginError": "Login error",
+    "registerError": "Registration error",
+    "loginSuccess": "Login successful. Welcome",
+    "registerSuccess": "Registration successful. Welcome"
+  },
+  "buttons": {
+    "save": "Save",
+    "continue": "Continue",
+    "back": "Back"
+  },
+  "upload": {
+    "title": "Upload file for quest task",
+    "taskLabel": "Select quest task",
+    "pickFile": "Pick file",
+    "preview": "Preview",
+    "uploadButton": "Upload",
+    "uploading": "Uploading file...",
+    "uploadSuccess": "File uploaded and linked to quest task",
+    "uploadError": "Upload failed",
+    "selectError": "Select task and file",
+    "aiPerson": "AI: person detected",
+    "aiGreen": "AI: green color detected",
+    "aiScore": "Score",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "quest": {
+    "title": "Quest: Legacy of Kalyk Shynyk",
+    "progress": "Progress",
+    "loginRequired": "Please sign in first to track quest progress.",
+    "authNeeded": "Sign in is required.",
+    "fileRequired": "Select a file for level {level}.",
+    "answerRequired": "Answer is required for level {level}.",
+    "levelDone": "Level {level} completed!",
+    "uploadLabel": "Upload file:",
+    "answerPlaceholder": "Enter your answer",
+    "done": "Completed",
+    "completeNext": "Complete and go next",
+    "locked": "Locked",
+    "scanButton": "Scan",
+    "stopScan": "Stop scanner",
+    "qrDenied": "Access to this level is denied",
+    "levelOpened": "Level {level} opened",
+    "spiritAccepted": "The spirits accepted you",
+    "yourReward": "Your reward",
+    "chooseMall": "Choose mall"
+  },
+  "catalog": {
+    "title": "Product catalog",
+    "subtitle": "Choose a product and buy it or get it through the quest.",
+    "price": "Price",
+    "buy": "Buy",
+    "getByQuest": "Get via quest",
+    "buyClicked": "Purchase selected",
+    "questClicked": "Quest reward selected",
+    "loginNeeded": "Sign in to purchase",
+    "orderError": "Failed to create order",
+    "orderCreated": "Order created",
+    "orderStatus": "Order status",
+    "payWithVtb": "Pay with VTB Pay"
+  },
+  "profile": {
+    "title": "Profile",
+    "name": "Name",
+    "email": "Email",
+    "rewards": "Rewards",
+    "noRewards": "No rewards yet",
+    "loginRequired": "Sign in to view profile",
+    "loadError": "Failed to load profile"
+  },
+  "story": {
+    "introTitle": "Quest Prologue",
+    "introLine": "You entered the spirits space",
+    "ornamentLine": "The ornament is the language of ancestors",
+    "notAloneLine": "You are not alone",
+    "shopLine": "The market keeps traces of memory",
+    "finalQuestionLine": "The final question opens the path to reward",
+    "finalLine": "The spirits heard your path and left you a sign",
+    "beginJourney": "Begin the journey"
+  }
+}

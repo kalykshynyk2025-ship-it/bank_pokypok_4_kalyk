@@ -1,0 +1,125 @@
+{
+  "nav": {
+    "brand": "Налыме банк",
+    "home": "Тӱҥ",
+    "about": "Проект нерген",
+    "login": "Пурлаш",
+    "register": "Регистраций",
+    "quest": "Квест",
+    "catalog": "Каталог",
+    "profile": "Профиль",
+    "admin": "Админ"
+  },
+  "language": {
+    "label": "Йылме",
+    "ru": "Руш",
+    "en": "Англий",
+    "mar": "Марий"
+  },
+  "home": {
+    "title": "Тӱҥ лаштык",
+    "description": "Тиде старт шаблон: frontend Next.js + Tailwind CSS, backend Express.",
+    "backendTitle": "Backend кылым ужаш",
+    "status": "Статус",
+    "message": "Шомак",
+    "backendError": "Backend вашталтеш огыл",
+    "backendUnavailable": "Backend лийын огыл",
+    "questTitle": "QR-квест: Калык шынык наследий",
+    "questDescription": "5 уровеньым эртен, QR-код-влакым лудаш, фото/видеом колташ да наградым налаш.",
+    "startQuest": "Квестым тӱҥалаш",
+    "shopButton": "Каталогым почаш"
+  },
+  "about": {
+    "title": "Проект нерген",
+    "description": "Квест, уровень, правил да товар каталог нерген лаштык-заглушка."
+  },
+  "auth": {
+    "loading": "Вучена...",
+    "loginTitle": "Пурлаш",
+    "registerTitle": "Регистраций",
+    "name": "Лӱм",
+    "email": "Email",
+    "password": "Пароль",
+    "loginButton": "Пураш",
+    "registerButton": "Регистраций ышташ",
+    "loginError": "Пурымаш йоҥылыш",
+    "registerError": "Регистраций йоҥылыш",
+    "loginSuccess": "Пурымаш сайын. Поро тол",
+    "registerSuccess": "Регистраций сайын. Поро тол"
+  },
+  "buttons": {
+    "save": "Аралаш",
+    "continue": "Умбаке",
+    "back": "Мӧҥгеш"
+  },
+  "upload": {
+    "title": "Заданийлан файлым колташ",
+    "taskLabel": "Квест заданийым ойыраш",
+    "pickFile": "Файлым ойыраш",
+    "preview": "Ончыктымаш",
+    "uploadButton": "Колташ",
+    "uploading": "Файл колтымо...",
+    "uploadSuccess": "Файл колталтше да заданий дене кылдалтше",
+    "uploadError": "Файл колтымаш йоҥылыш",
+    "selectError": "Заданийым да файлым ойырыза",
+    "aiPerson": "AI: еҥ уло",
+    "aiGreen": "AI: ужар тӱс уло",
+    "aiScore": "Оценко",
+    "yes": "Туге",
+    "no": "Уке"
+  },
+  "quest": {
+    "title": "Квест: Калык шынык наследий",
+    "progress": "Прогресс",
+    "loginRequired": "Квест прогрессым кучаш тӱҥале пураш кӱлеш.",
+    "authNeeded": "Аккаунт дене пураш кӱлеш.",
+    "fileRequired": "{level} уровеньлан файл ойыраш кӱлеш.",
+    "answerRequired": "{level} уровеньлан вашмут кӱлеш.",
+    "levelDone": "{level} уровень эртен!",
+    "uploadLabel": "Файлым колтыза:",
+    "answerPlaceholder": "Вашмутым возыза",
+    "done": "Эртен",
+    "completeNext": "Ышташ да умбаке каят",
+    "locked": "Петыралтын",
+    "scanButton": "Сканироватлаш",
+    "stopScan": "Сканерым чарнаш",
+    "qrDenied": "Тиде уровеньыш пурымаш чарналтын",
+    "levelOpened": "{level} уровень почылтеш",
+    "spiritAccepted": "Шӱвыр-влак тыйым налын",
+    "yourReward": "Тыйын наградо",
+    "chooseMall": "ТЦ ойырыза"
+  },
+  "catalog": {
+    "title": "Товар каталог",
+    "subtitle": "Товарым ойырыза: налаш але квест гоч налаш.",
+    "price": "Ак",
+    "buy": "Налаш",
+    "getByQuest": "Квест гоч налаш",
+    "buyClicked": "Налымаш ойырен",
+    "questClicked": "Квест гоч налмаш ойырен",
+    "loginNeeded": "Налымашлан аккаунт дене пурыза",
+    "orderError": "Заказым ыштымаш йоҥылыш",
+    "orderCreated": "Заказ ышталтын",
+    "orderStatus": "Заказ статус",
+    "payWithVtb": "VTB Pay гоч тӱлыман"
+  },
+  "profile": {
+    "title": "Профиль",
+    "name": "Лӱм",
+    "email": "Email",
+    "rewards": "Наградо",
+    "noRewards": "Наградо али уке",
+    "loginRequired": "Профильым ужаш пураш кӱлеш",
+    "loadError": "Профильым налмаш йоҥылыш"
+  },
+  "story": {
+    "introTitle": "Квест пролог",
+    "introLine": "Тый шӱвыр-влак пространствыш пуренат",
+    "ornamentLine": "Узор — ава-ача йылме",
+    "notAloneLine": "Тый пелен уке огыл",
+    "shopLine": "Торговый вере шарнымаш палышым куча",
+    "finalQuestionLine": "Кыдылаш вашмут наградалан корным почеш",
+    "finalLine": "Шӱвыр-влак тыйын корным колышт да палыш кодышт",
+    "beginJourney": "Корным тӱҥалаш"
+  }
+}

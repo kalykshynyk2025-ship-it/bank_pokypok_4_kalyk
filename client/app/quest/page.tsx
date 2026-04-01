@@ -1,0 +1,282 @@
+'use client';
+
+import { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import QrScanner from '@/components/qr-scanner';
+import { useI18n } from '@/context/i18n-context';
+import { getUser } from '@/lib/auth';
+
+interface Mall {
+  _id: string;
+  name: string;
+  city: string;
+}
+
+interface QuestTask {
+  id: string;
+  level: number;
+  title: string;
+  description: string;
+  type: string;
+  question?: string;
+}
+
+interface QuestProgress {
+  currentLevel: number;
+  completedLevels: number[];
+}
+
+export default function QuestPage() {
+  const { t } = useI18n();
+  const [malls, setMalls] = useState<Mall[]>([]);
+  const [mallId, setMallId] = useState('');
+  const [tasks, setTasks] = useState<QuestTask[]>([]);
+  const [progress, setProgress] = useState<QuestProgress>({ currentLevel: 1, completedLevels: [] });
+  const [userId, setUserId] = useState<string | null>(null);
+  const [answerByLevel, setAnswerByLevel] = useState<Record<number, string>>({});
+  const [fileByLevel, setFileByLevel] = useState<Record<number, File | null>>({});
+  const [message, setMessage] = useState('');
+  const [openedLevel, setOpenedLevel] = useState<number>(1);
+  const [questReward, setQuestReward] = useState<string | null>(null);
+  const [showIntro, setShowIntro] = useState(true);
+
+  const levelStory: Record<number, string> = {
+    1: t('story.introLine'),
+    2: t('story.ornamentLine'),
+    3: t('story.shopLine'),
+    4: t('story.notAloneLine'),
+    5: t('story.finalQuestionLine')
+  };
+
+  const levelText = (key: string, level: number) => t(key).replace('{level}', String(level));
+
+  useEffect(() => {
+    const user = getUser();
+    if (!user?.id) {
+      setMessage(t('quest.loginRequired'));
+      return;
+    }
+
+    setUserId(user.id);
+  }, [t]);
+
+  useEffect(() => {
+    async function loadMalls() {
+      const response = await fetch('/api/quest/malls');
+      const data = await response.json();
+      setMalls(data.malls || []);
+
+      if (data.malls?.length) {
+        setMallId(data.malls[0]._id);
+      }
+    }
+
+    loadMalls();
+  }, []);
+
+  useEffect(() => {
+    async function loadMallQuest() {
+      if (!mallId) return;
+
+      const tasksResponse = await fetch(`/api/quest/malls/${mallId}/levels`);
+      const tasksData = await tasksResponse.json();
+      setTasks(tasksData.tasks || []);
+      setOpenedLevel(1);
+      setQuestReward(null);
+    }
+
+    loadMallQuest();
+  }, [mallId]);
+
+  useEffect(() => {
+    async function loadProgress() {
+      if (!userId || !mallId) return;
+
+      const progressResponse = await fetch(`/api/quest/progress/${userId}?mallId=${mallId}`);
+      const progressData = await progressResponse.json();
+      setProgress(progressData.progress);
+      setOpenedLevel(progressData.progress?.currentLevel || 1);
+    }
+
+    loadProgress();
+  }, [userId, mallId]);
+
+  const doneCount = useMemo(() => progress.completedLevels.length, [progress.completedLevels.length]);
+
+  function onSelectFile(level: number, event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0] || null;
+    setFileByLevel((prev) => ({ ...prev, [level]: file }));
+  }
+
+  async function handleQrDetected(code: string) {
+    if (!userId || !mallId) {
+      setMessage(t('quest.authNeeded'));
+      return;
+    }
+
+    const response = await fetch(`/api/quest/scan/${userId}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code, mallId })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      setMessage(data.message || t('quest.qrDenied'));
+      return;
+    }
+
+    if (data.allowed) {
+      setOpenedLevel(data.level);
+      setMessage(data.message || levelText('quest.levelOpened', data.level));
+      document.getElementById(`level-${data.level}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
+  async function uploadForTask(task: QuestTask) {
+    if (!userId || !mallId) {
+      setMessage(t('quest.authNeeded'));
+      return false;
+    }
+
+    const file = fileByLevel[task.level];
+    if (!file) {
+      setMessage(levelText('quest.fileRequired', task.level));
+      return false;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('questTaskId', task.id);
+    formData.append('questTaskTitle', task.title);
+    formData.append('userId', userId);
+    formData.append('mallId', mallId);
+
+    const uploadResponse = await fetch('/api/uploads', { method: 'POST', body: formData });
+
+    if (!uploadResponse.ok) {
+      const errorData = await uploadResponse.json();
+      setMessage(errorData.message || 'Ошибка загрузки файла');
+      return false;
+    }
+
+    return true;
+  }
+
+  async function completeLevel(task: QuestTask) {
+    if (!userId || !mallId) {
+      setMessage(t('quest.authNeeded'));
+      return;
+    }
+
+    const requiresUpload = task.type.includes('photo') || task.type.includes('video');
+    if (requiresUpload) {
+      const ok = await uploadForTask(task);
+      if (!ok) return;
+    }
+
+    const answer = answerByLevel[task.level];
+    if (task.type.includes('question') && !answer?.trim()) {
+      setMessage(levelText('quest.answerRequired', task.level));
+      return;
+    }
+
+    const response = await fetch(`/api/quest/progress/${userId}/complete`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ level: task.level, answer, mallId })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      setMessage(data.message || 'Ошибка обновления прогресса');
+      return;
+    }
+
+    setProgress(data.progress);
+    setOpenedLevel(Math.min(5, task.level + 1));
+
+    if (data.questCompleted) {
+      setQuestReward(data.reward || null);
+      setMessage(t('quest.spiritAccepted'));
+      return;
+    }
+
+    setMessage(levelText('quest.levelDone', task.level));
+  }
+
+  return (
+    <section className="space-y-6 fade-up">
+      <div className="soft-card soft-green">
+        <h1 className="text-2xl font-bold">{t('quest.title')}</h1>
+        <p className="mt-2 text-slate-700">{t('quest.progress')}: {doneCount}/5</p>
+
+        <div className="mt-3">
+          <label className="text-sm text-slate-700">{t('quest.chooseMall')}</label>
+          <select value={mallId} onChange={(e) => setMallId(e.target.value)} className="mt-1 w-full rounded-xl border px-3 py-2">
+            {malls.map((mall) => (
+              <option key={mall._id} value={mall._id}>{mall.name} — {mall.city}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      {showIntro && (
+        <div className="soft-card soft-pink text-center">
+          <h2 className="text-2xl font-bold text-purple-900">{t('story.introTitle')}</h2>
+          <p className="mt-2 text-purple-800">{t('story.introLine')}</p>
+          <button className="btn-primary mt-4" onClick={() => setShowIntro(false)}>{t('story.beginJourney')}</button>
+        </div>
+      )}
+
+      <QrScanner onDetected={handleQrDetected} />
+
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {tasks.map((task) => {
+          const completed = progress.completedLevels.includes(task.level);
+          const isCurrent = task.level === progress.currentLevel;
+          const isOpened = task.level === openedLevel;
+
+          return (
+            <article id={`level-${task.level}`} key={task.id} className={`soft-card ${completed ? 'soft-green border-emerald-200' : isCurrent || isOpened ? 'soft-yellow border-amber-200' : 'soft-pink border-rose-100'}`}>
+              <h2 className="text-lg font-semibold">{task.level}. {task.title}</h2>
+              <p className="mt-2 text-sm text-slate-700">{task.description}</p>
+              <p className="mt-2 text-sm italic text-purple-800">{levelStory[task.level]}</p>
+
+              {(task.type.includes('photo') || task.type.includes('video')) && (isCurrent || isOpened) && (
+                <div className="mt-3 space-y-2">
+                  <label className="text-sm text-slate-700">{t('quest.uploadLabel')}</label>
+                  <input type="file" accept={task.type.includes('video') ? 'video/*' : 'image/*'} onChange={(event) => onSelectFile(task.level, event)} className="block w-full rounded border border-slate-300 px-3 py-2 text-sm" />
+                </div>
+              )}
+
+              {task.type.includes('question') && (isCurrent || isOpened) && (
+                <div className="mt-3 space-y-2">
+                  <p className="text-sm font-medium text-slate-800">{task.question}</p>
+                  <textarea rows={3} value={answerByLevel[task.level] || ''} onChange={(event) => setAnswerByLevel((prev) => ({ ...prev, [task.level]: event.target.value }))} className="w-full rounded border border-slate-300 px-3 py-2 text-sm" placeholder={t('quest.answerPlaceholder')} />
+                </div>
+              )}
+
+              <div className="mt-4 flex items-center gap-2">
+                <button onClick={() => completeLevel(task)} disabled={!isCurrent || completed} className="btn-primary disabled:cursor-not-allowed disabled:bg-slate-400">
+                  {completed ? t('quest.done') : isCurrent ? t('quest.completeNext') : t('quest.locked')}
+                </button>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+
+      {questReward && (
+        <div className="soft-card soft-pink text-center">
+          <h2 className="text-2xl font-bold text-purple-900">{t('quest.spiritAccepted')}</h2>
+          <p className="mt-2 text-purple-800">{t('quest.yourReward')}: <b>{questReward}</b></p>
+          <p className="mt-2 text-sm text-purple-700">{t('story.finalLine')}</p>
+        </div>
+      )}
+
+      {message && <p className="text-sm text-slate-700">{message}</p>}
+    </section>
+  );
+}

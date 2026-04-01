@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --mint: #e9f9ee;
+  --butter: #fff8dc;
+  --rose: #ffeef5;
+  --ink: #233029;
+}
+
+body {
+  @apply text-slate-800;
+  background: radial-gradient(circle at 10% 10%, var(--mint) 0%, #f8fff9 28%, #fffdf6 60%, #fff6fb 100%);
+  min-height: 100vh;
+}
+
+.ethno-pattern {
+  background-image:
+    linear-gradient(45deg, rgba(34, 139, 34, 0.06) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(233, 150, 122, 0.06) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(255, 215, 0, 0.09) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(221, 160, 221, 0.09) 75%);
+  background-size: 22px 22px;
+  background-position: 0 0, 0 11px, 11px -11px, -11px 0;
+}
+
+.soft-card {
+  @apply rounded-2xl border border-white/60 bg-white/70 p-4 shadow-sm backdrop-blur transition-all duration-300;
+}
+
+.soft-card:hover {
+  @apply shadow-md -translate-y-0.5;
+}
+
+.soft-green { background-color: var(--mint); }
+.soft-yellow { background-color: var(--butter); }
+.soft-pink { background-color: var(--rose); }
+
+.btn-soft {
+  @apply rounded-xl px-4 py-2 text-sm font-medium transition-all duration-200;
+}
+
+.btn-primary {
+  @apply btn-soft bg-slate-900 text-white hover:bg-slate-700;
+}
+
+.btn-secondary {
+  @apply btn-soft border border-slate-300 bg-white/80 text-slate-800 hover:bg-white;
+}
+
+.fade-up {
+  animation: fadeUp 450ms ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
